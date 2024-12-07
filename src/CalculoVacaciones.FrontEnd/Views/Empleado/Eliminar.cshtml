@@ -1,0 +1,37 @@
+﻿@using CalculoVacaciones.Data.Models
+<!-- Especifica el modelo con el que se va a trabajar -->
+@model Empleado
+@{
+    ViewData["Title"] = "Eliminar Empleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card shadow-sm border-danger">
+    <div class="card-header bg-danger text-white">
+        <h5 class="mb-0">Eliminar Empleado</h5>
+    </div>
+    <div class="card-body">
+        <!-- Formulario para enviar la solicitud de eliminación -->
+        <form asp-action="Eliminar" asp-controller="Empleado" method="post">
+            <!-- Campo oculto para pasar el ID del empleado -->
+            <input asp-for="IdEmpleado" type="hidden" />
+
+            <!-- Mensaje de advertencia -->
+            <div class="alert alert-danger text-center" role="alert">
+                <strong>¿Está seguro?</strong> <br>
+                Está a punto de eliminar al empleado: <strong>@Html.DisplayFor(m => m.Nombre)</strong>.
+                <br> Esta acción no se puede deshacer.
+            </div>
+
+            <!-- Botones de acción -->
+            <div class="d-flex justify-content-center mt-4">
+                <button type="submit" class="btn btn-danger me-2">
+                    <i class="bi bi-trash3"></i> Confirmar Eliminación
+                </button>
+                <a asp-action="Listar" asp-controller="Empleado" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left"></i> Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>

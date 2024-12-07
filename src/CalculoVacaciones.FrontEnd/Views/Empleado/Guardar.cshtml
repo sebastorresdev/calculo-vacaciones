@@ -1,0 +1,132 @@
+﻿@using CalculoVacaciones.Data.Models
+<!-- Se especifica el modelo con el que se va a trabajar -->
+@model Empleado
+
+@{
+    ViewData["Title"] = "Registrar Empleado";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Registrar Nuevo Empleado</h4>
+        </div>
+        <div class="card-body">
+            <!-- Hace referencia al método Guardar de RegistroController -->
+            <form asp-action="Guardar" asp-controller="Empleado" method="post">
+                <div class="row">
+                    <!-- Nombre -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Nombre" class="form-label fw-bold">Nombre</label>
+                        <input asp-for="Nombre" type="text" class="form-control" />
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
+                    <!-- Primer Apellido -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="PrimerApellido" class="form-label fw-bold">Apellido Paterno</label>
+                        <input asp-for="PrimerApellido" type="text" class="form-control" />
+                        <span asp-validation-for="PrimerApellido" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Segundo Apellido -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="SegundoApellido" class="form-label fw-bold">Apellido Materno</label>
+                        <input asp-for="SegundoApellido" type="text" class="form-control" />
+                        <span asp-validation-for="SegundoApellido" class="text-danger"></span>
+                    </div>
+                    <!-- Departamento -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="IdDepartamento" class="form-label fw-bold">Departamento</label>
+                        <select asp-for="IdDepartamento" class="form-select">
+                            <option value="">Seleccionar Departamento</option>
+                            @foreach (var item in ViewBag.Departamentos)
+                            {
+                                <option value="@item.Value">@item.Text</option>
+                            }
+                        </select>
+                        <span asp-validation-for="IdDepartamento" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Jefatura -->
+                    <!-- Jefatura -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="EsJefe" class="form-label fw-bold">¿Es Jefe?</label>
+                        <select asp-for="EsJefe" class="form-select">
+                            <option value="true">SI</option>
+                            <option value="false">NO</option>
+                        </select>
+                        <span asp-validation-for="EsJefe" class="text-danger"></span>
+                    </div>
+
+                    <!-- Tipo Empleado -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="IdTipoEmpleado" class="form-label fw-bold">Tipo Empleado</label>
+                        <select asp-for="IdTipoEmpleado" class="form-select">
+                            <option value="">Seleccionar Tipo Empleado</option>
+                            @foreach (var item in ViewBag.TipoEmpleados)
+                            {
+                                <option value="@item.Value">@item.Text</option>
+                            }
+                        </select>
+                        <span asp-validation-for="IdTipoEmpleado" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Fecha de Ingreso -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="FechaIngreso" class="form-label fw-bold">Fecha de Ingreso</label>
+                        <input asp-for="FechaIngreso" type="date" class="form-control" />
+                        <span asp-validation-for="FechaIngreso" class="text-danger"></span>
+                    </div>
+                    <!-- Correo Electrónico -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="CorreoElectronico" class="form-label fw-bold">Correo Electrónico</label>
+                        <input asp-for="CorreoElectronico" type="email" class="form-control" />
+                        <span asp-validation-for="CorreoElectronico" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Estado -->
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Estado" class="form-label fw-bold">Estado</label>
+                        <select asp-for="Estado" class="form-select">
+                            <option value="Activo">Activo</option>
+                            <option value="Inactivo">Inactivo</option>
+                            <option value="Bloqueado">Bloqueado</option>
+                        </select>
+                        <span asp-validation-for="Estado" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <!-- Mensaje de error si el modelo no es válido -->
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="alert alert-danger">
+                        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                        {
+                            <p>@error.ErrorMessage</p>
+                        }
+                    </div>
+                }
+
+                <!-- Botones -->
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                    <a asp-action="Listar" asp-controller="Empleado" class="btn btn-secondary">Volver a la lista</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,73 @@
+﻿@using CalculoVacaciones.Data.Models
+@model List<Empleado>
+
+@{
+    ViewData["Title"] = "Lista de Empleados";
+}
+
+<div class="card">
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between my-4">
+                            <h4>Lista de Empleados y Funcionarios</h4>
+                            <div>
+                                <a asp-action="Guardar" asp-controller="Empleado" class="btn btn-success">
+                                    <i class="fas fa-plus"></i> Nuevo Registro
+                                </a>
+                            </div>
+                        </div>
+
+                        <table class="table datatable">
+                            <thead class="table-dark text-center">
+                                <tr>
+                                    <th>Código Funcionario</th>
+                                    <th>Nombre</th>
+                                    <th>Apellidos</th>
+                                    <th>Departamento</th>
+                                    <th>Jefatura</th>
+                                    <th>Tipo Empleado</th>
+                                    <th>Fecha Ingreso</th>
+                                    <th>Correo Electrónico</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td class="text-center">@item.IdEmpleado</td>
+                                        <td>@item.Nombre</td>
+                                        <td>@item.PrimerApellido @item.SegundoApellido</td> <!-- Concatenando apellidos -->
+                                        <td>@item.Departamento</td>
+                                        <td>@item.EsJefe</td> <!-- Asumí que 'EsJefe' es la propiedad -->
+                                        <td>@item.TipoEmpleado</td>
+                                        <td class="text-center">@item.FechaIngreso.ToString("dd/MM/yyyy")</td> <!-- Formato de fecha más personalizado -->
+                                        <td>@item.CorreoElectronico</td>
+                                        <td class="text-center">
+                                            <span class="badge @(item.Estado == "Activo" ? "bg-success" : (item.Estado == "Inactivo" ? "bg-secondary" : "bg-danger"))">
+                                                @item.Estado
+                                            </span>
+                                        </td>
+                                        <td class="text-center text-nowrap">
+                                            <a asp-action="Editar" asp-controller="Empleado" asp-route-id="@item.IdEmpleado" class="btn btn-primary btn-sm">
+                                                <i class="fas fa-edit"></i> Editar
+                                            </a>
+                                            <a asp-action="Eliminar" asp-controller="Empleado" asp-route-id="@item.IdEmpleado" class="btn btn-danger btn-sm">
+                                                <i class="fas fa-trash-alt"></i> Eliminar
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
