@@ -1,0 +1,46 @@
+﻿@model IEnumerable<CalculoVacaciones.Data.Models.TipoEmpleado>
+
+@{
+    ViewData["Title"] = "Tipos de Empleado";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="mb-3">
+@*     <a class="btn btn-primary" href="@Url.Action("Guardar", "TipoEmpleado")">
+        <i class="fas fa-plus"></i> Nuevo Tipo de Empleado
+    </a> *@
+    <a asp-action="Guardar" asp-controller="TipoEmpleado" class="btn btn-success">
+        <i class="fas fa-plus"></i> Nuevo Tipo de Empleado
+    </a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Días Vacaciones Anuales</th>
+            <th scope="col">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Nombre</td>
+                <td>@item.DiasVacacionesAnuales</td>
+                <td>
+                    <a href="@Url.Action("Editar", new { id = item.Id })" class="btn btn-warning btn-sm">
+                        <i class="fas fa-edit"></i> Editar
+                    </a>
+                    <a href="@Url.Action("Eliminar", new { id = item.Id })" class="btn btn-danger btn-sm">
+                        <i class="fas fa-trash"></i> Eliminar
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

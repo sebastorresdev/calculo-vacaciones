@@ -50,7 +50,7 @@ public class EmpleadoController : Controller
         if (ModelState.IsValid)
         {
             // Guardar el empleado en la base de datos
-            _empleadoService.Registrar(empleado);
+            _empleadoService.Guardar(empleado);
 
             return RedirectToAction("Listar");  // O la acción correspondiente
         }
@@ -98,7 +98,7 @@ public class EmpleadoController : Controller
     [HttpPost]
     public IActionResult Eliminar(Empleado empleado)
     {
-        if (_empleadoService.Elimiar(empleado.IdEmpleado))
+        if (_empleadoService.Eliminar(empleado.IdEmpleado))
         {
             return RedirectToAction("Listar");
         }

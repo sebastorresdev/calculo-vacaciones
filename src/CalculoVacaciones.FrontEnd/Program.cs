@@ -1,5 +1,3 @@
-using CalculoVacaciones.Data.Interfaces;
-using CalculoVacaciones.Data.Repositories;
 using CalculoVacaciones.Negocios.Interfaces;
 using CalculoVacaciones.Negocios.Services;
 
@@ -10,16 +8,10 @@ builder.Services.AddControllersWithViews();
 
 string connectionString = builder.Configuration.GetConnectionString("CadenSQL") ?? throw new NullReferenceException("No se pudo obtener la cadena de conexion");
 
-// Dependencias de los repositorios
-builder.Services.AddScoped<IEmpleadoRepository>(provider => new EmpleadoRepository(connectionString));
-builder.Services.AddScoped<IDepartamentoRepository>(provider => new DepartamentoRepository(connectionString));
-builder.Services.AddScoped<ITipoEmpleadoRepository>(provider => new TipoEmpleadoRepository(connectionString));
-
 // Dependencias de los servicios
-builder.Services.AddScoped<IEmpleadoService, EmpleadoService>();
-builder.Services.AddScoped<IDepartamentoService, DepartamentoService>();
-builder.Services.AddScoped<ITipoEmpleadoService, TipoEmpleadoService>();
-
+builder.Services.AddScoped<IEmpleadoService>(provider => new EmpleadoService(connectionString));
+builder.Services.AddScoped<IDepartamentoService>(provider => new DepartamentoService(connectionString));
+builder.Services.AddScoped<ITipoEmpleadoService>(provider => new TipoEmpleadoService(connectionString));
 
 
 var app = builder.Build();

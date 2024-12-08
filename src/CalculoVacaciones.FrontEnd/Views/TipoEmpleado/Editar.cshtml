@@ -1,0 +1,24 @@
+﻿@model CalculoVacaciones.Data.Models.TipoEmpleado
+
+@{
+    ViewData["Title"] = "Editar Tipo de Empleado";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Editar" method="post">
+    <div class="form-group">
+        <label for="Id">ID</label>
+        <input type="text" class="form-control" id="Id" name="Id" value="@Model.Id" readonly />
+    </div>
+    <div class="form-group">
+        <label for="Nombre">Nombre</label>
+        <input type="text" class="form-control" id="Nombre" name="Nombre" value="@Model.Nombre" required />
+    </div>
+    <div class="form-group">
+        <label for="DiasVacacionesAnuales">Días de Vacaciones Anuales</label>
+        <input type="number" class="form-control" id="DiasVacacionesAnuales" name="DiasVacacionesAnuales" value="@Model.DiasVacacionesAnuales" required />
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Guardar</button>
+    <a href="@Url.Action("Listar")" class="btn btn-secondary mt-3">Cancelar</a>
+</form>

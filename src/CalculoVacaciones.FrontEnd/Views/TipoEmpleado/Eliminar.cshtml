@@ -1,0 +1,19 @@
+﻿@model CalculoVacaciones.Data.Models.TipoEmpleado
+
+@{
+    ViewData["Title"] = "Eliminar Tipo de Empleado";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="alert alert-warning">
+    <h4 class="alert-heading">¿Estás seguro?</h4>
+    <p>Estás a punto de eliminar el tipo de empleado <strong>@Model.Nombre</strong> con ID: @Model.Id. Esta acción no se puede deshacer.</p>
+
+    <!-- Formulario para enviar al método POST -->
+    <form asp-action="Eliminar" method="post">
+        <input type="hidden" name="Id" value="@Model.Id" />
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a href="@Url.Action("Listar")" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
