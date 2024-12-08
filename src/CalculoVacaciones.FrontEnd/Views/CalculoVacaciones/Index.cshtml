@@ -1,0 +1,57 @@
+﻿@using CalculoVacaciones.Data.Models
+@model Vacaciones
+
+@{
+    ViewData["Title"] = "Cálculo de Días de Vacaciones";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-body">
+            <form asp-action="CalcularVacaciones" method="post">
+                <div class="form-group">
+                    <label for="Id">Empleado</label>
+                    <select id="Id" name="Id" class="form-control" required>
+                        <option value="">Seleccione un empleado</option>
+                        @foreach (var empleado in ViewBag.Empleados)
+                        {
+                            <option value="@empleado.IdEmpleado">@empleado.Nombre</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="form-group mt-3">
+                    <label for="FechaSeleccionada">Fecha</label>
+                    <input type="date" id="FechaSeleccionada" name="FechaSeleccionada" class="form-control" value="@Model.FechaSeleccionada.ToString("yyyy-MM-dd")" required />
+                </div>
+
+                <button type="submit" class="btn btn-primary mt-4">Calcular Vacaciones</button>
+            </form>
+        </div>
+    </div>
+
+    @if (Model.Empleado is not null)
+    {
+        @if(Model.VacacionesDisponibles > 0)
+        {
+            <div class="alert alert-success mt-4">
+                <h4>Días de Vacaciones Disponibles</h4>
+                <p>
+                    El empleado <strong>@Model.Empleado?.Nombre</strong> tiene <strong>@Model.VacacionesDisponibles</strong> días de vacaciones disponibles hasta la fecha <strong>@Model.FechaSeleccionada.ToString("dd/MM/yyyy")</strong>.
+                </p>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-warning mt-4">
+                <h4>Sin Días de Vacaciones Disponibles</h4>
+                <p>
+                    El empleado <strong>@Model.Empleado?.Nombre</strong> no tiene días de vacaciones disponibles hasta la fecha seleccionada <strong>@Model.FechaSeleccionada.ToString("dd/MM/yyyy")</strong>.
+                </p>
+            </div>
+        }
+    }
+    
+</div>

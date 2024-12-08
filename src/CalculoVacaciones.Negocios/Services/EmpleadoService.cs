@@ -61,27 +61,26 @@ public class EmpleadoService : IEmpleadoService
 
     public int Guardar(Empleado empleado)
     {
+        using var conexion = new SqlConnection(_cadenaSql);
+        
         try
         {
-            using var conexion = new SqlConnection(_cadenaSql);
-            {
-                //Abrir la conexión
-                conexion.Open();
-                SqlCommand cmd = new SqlCommand("InsertarEmpleado", conexion);
+            
+            conexion.Open();
+            SqlCommand cmd = new SqlCommand("InsertarEmpleado", conexion);
 
-                cmd.Parameters.AddWithValue("@Nombre", empleado.Nombre);
-                cmd.Parameters.AddWithValue("@PrimerApellido", empleado.PrimerApellido);
-                cmd.Parameters.AddWithValue("@SegundoApellido", empleado.SegundoApellido);
-                cmd.Parameters.AddWithValue("@IdDepartamento", empleado.IdDepartamento);
-                cmd.Parameters.AddWithValue("@EsJefe", empleado.EsJefe == "SI");
-                cmd.Parameters.AddWithValue("@IdTipoEmpleado", empleado.IdTipoEmpleado);
-                cmd.Parameters.AddWithValue("@FechaIngreso", empleado.FechaIngreso);
-                cmd.Parameters.AddWithValue("@CorreoElectronico", empleado.CorreoElectronico);
-                cmd.Parameters.AddWithValue("@EsActivo", empleado.Estado == "Activo");
-                cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Nombre", empleado.Nombre);
+            cmd.Parameters.AddWithValue("@PrimerApellido", empleado.PrimerApellido);
+            cmd.Parameters.AddWithValue("@SegundoApellido", empleado.SegundoApellido);
+            cmd.Parameters.AddWithValue("@IdDepartamento", empleado.IdDepartamento);
+            cmd.Parameters.AddWithValue("@EsJefe", empleado.EsJefe == "SI");
+            cmd.Parameters.AddWithValue("@IdTipoEmpleado", empleado.IdTipoEmpleado);
+            cmd.Parameters.AddWithValue("@FechaIngreso", empleado.FechaIngreso);
+            cmd.Parameters.AddWithValue("@CorreoElectronico", empleado.CorreoElectronico);
+            cmd.Parameters.AddWithValue("@EsActivo", empleado.Estado == "Activo");
+            cmd.CommandType = CommandType.StoredProcedure;
 
-                return cmd.ExecuteNonQuery();
-            }
+            return cmd.ExecuteNonQuery();
         }
         catch (Exception ex)
         {

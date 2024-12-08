@@ -12,7 +12,7 @@ string connectionString = builder.Configuration.GetConnectionString("CadenSQL") 
 builder.Services.AddScoped<IEmpleadoService>(provider => new EmpleadoService(connectionString));
 builder.Services.AddScoped<IDepartamentoService>(provider => new DepartamentoService(connectionString));
 builder.Services.AddScoped<ITipoEmpleadoService>(provider => new TipoEmpleadoService(connectionString));
-
+builder.Services.AddScoped<IVacacionService>(provider => new VacacionService(connectionString));
 
 var app = builder.Build();
 
