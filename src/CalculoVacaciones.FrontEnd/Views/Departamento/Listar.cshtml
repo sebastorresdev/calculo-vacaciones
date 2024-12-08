@@ -1,0 +1,33 @@
+﻿@model IEnumerable<CalculoVacaciones.Data.Models.Departamento>
+
+@{
+    ViewData["Title"] = "Lista de Departamentos";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var departamento in Model)
+        {
+            <tr>
+                <td>@departamento.Id</td>
+                <td>@departamento.Nombre</td>
+                <td>
+                    <a href="@Url.Action("Detalles", new { id = departamento.Id })" class="btn btn-info">Detalles</a>
+                    <a href="@Url.Action("Editar", new { id = departamento.Id })" class="btn btn-warning">Editar</a>
+                    <a href="@Url.Action("Eliminar", new { id = departamento.Id })" class="btn btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="@Url.Action("Crear")" class="btn btn-primary">Nuevo Departamento</a>

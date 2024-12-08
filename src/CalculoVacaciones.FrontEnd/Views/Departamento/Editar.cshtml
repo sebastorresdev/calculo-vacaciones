@@ -1,0 +1,19 @@
+﻿@model CalculoVacaciones.Data.Models.Departamento
+
+@{
+    ViewData["Title"] = "Editar Departamento";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Editar" method="post">
+    <input type="hidden" name="Id" value="@Model.Id" />
+
+    <div class="form-group">
+        <label for="Nombre">Nombre del Departamento</label>
+        <input type="text" class="form-control" id="Nombre" name="Nombre" value="@Model.Nombre" required />
+        <span asp-validation-for="Nombre" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    <a href="@Url.Action("Listar")" class="btn btn-secondary">Cancelar</a>
+</form>

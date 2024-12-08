@@ -1,0 +1,16 @@
+﻿@model CalculoVacaciones.Data.Models.Departamento
+
+@{
+    ViewData["Title"] = "Eliminar Departamento";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="alert alert-warning">
+    <p>¿Estás seguro de que deseas eliminar el departamento <strong>@Model.Nombre</strong>?</p>
+    <form asp-action="Eliminar" method="post">
+        <input type="hidden" name="Id" value="@Model.Id" />
+        <button type="submit" class="btn btn-danger">Eliminar</button>
+        <a href="@Url.Action("Listar")" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
